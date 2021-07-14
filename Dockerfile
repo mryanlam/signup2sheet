@@ -1,7 +1,7 @@
 FROM python:3.9
 
-ADD coupraidbot /root/coup
+ADD signup2sheet /root/signup2sheet
 
-RUN pip install -r /root/coup/requirements.txt
+RUN pip install -r /root/signup2sheet/requirements.txt
 
-CMD ["python3 /root/coup.py"]
+CMD ["python3 /root/signup2sheet.py"]
