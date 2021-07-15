@@ -1,2 +1,5 @@
 .devcontainer/
 .vscode/
+venv/
+conf.yaml
+credentials.json
