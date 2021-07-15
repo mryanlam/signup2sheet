@@ -1,10 +1,10 @@
 import requests
 from time import sleep
-from typing import String, List
+from typing import List
 
 
 class raid_helper_aggregator:
-    def __init__(self, raid_ids: List[String], token: String):
+    def __init__(self, raid_ids: List[str], token: str):
         self.endpoint = "http://51.195.103.14:3000/api/raids/"
         self.headers = {"Authorization": token}
         self.raid_ids = raid_ids
