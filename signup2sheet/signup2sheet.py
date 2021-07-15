@@ -43,7 +43,8 @@ def read_config(path: str) -> Dict[str, str]:
         return {
             "token": config["token"],
             "sheet": config["sheet"],
-            "discord_token": config["discord_token"]
+            "discord_token": config["discord_token"],
+            "rha_endpoint": config["rha_endpoint"]
         }
 
 
