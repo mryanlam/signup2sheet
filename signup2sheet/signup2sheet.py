@@ -21,7 +21,7 @@ async def on_message(message):
         print("Test command called")
         print(message.channel.id)
         raid_ids = await _scrape_channel(message.channel)
-        raid_helper = raid_helper_aggregator(raid_ids, config["token"])
+        raid_helper = raid_helper_aggregator(raid_ids, config["token"], config["rha_endpoint"])
         raid_helper.build_output()
         await message.channel.send(raid_helper.output)
 

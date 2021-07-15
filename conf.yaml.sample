@@ -1,3 +1,4 @@
 token: "Bearer token"
 sheet: "docs spreadsheet url"
 discord_token: "discord token"
+rha_endpoint: "rha endpoint"
