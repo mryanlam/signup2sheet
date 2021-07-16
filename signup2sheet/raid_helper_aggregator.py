@@ -12,8 +12,6 @@ class raid_helper_aggregator:
         self.headers = {"Authorization": token}
         self.raid_ids = list(set(self.validate_raid_ids(raid_ids)))
 
-        self.output = [["player", "class", "role", "spec"] + raid_ids]
-        
         self.class_remap = {"Guardian": "Druid",
                             "Feral": "Druid",
                             "Restoration": "Druid",
@@ -44,6 +42,10 @@ class raid_helper_aggregator:
                             "Protection": "Warrior"}
         
         self.get_signup_data()
+
+        raid_names = []
+
+        self.output = [["player", "class", "role", "spec"] + raid_names]
         
     def validate_raid_ids(self, raid_ids):
         #Input: list
@@ -75,8 +77,11 @@ class raid_helper_aggregator:
         #Grabs the signup data from raid-helper.
         
         self.user_data = []
+        self.raid_names = []
         for raid_id in self.raid_ids:
-            self.user_data = self.user_data + requests.get(self.endpoint + raid_id, headers = self.headers).json()["raidusers"]
+            rha_json = requests.get(self.endpoint + raid_id, headers = self.headers).json()
+            self.user_data = self.user_data + rha_json["raidusers"]
+            self.raid_names = self.raid_names + rha_json['raids']['name']
         self.users = sorted(list(set([user["username"] for user in self.user_data])))
 
     def get_player(self, username):
