@@ -2,10 +2,6 @@ import requests
 from time import sleep
 from typing import List
 
-#TODO Integrate with discord for channel scrape
-#TODO Integrate with gspread for automatic upload
-#TODO it seems raid ids are 18 characters. Confirm and validate on it.
-
 class raid_helper_aggregator:
     def __init__(self, raid_ids: List[str], token: str, endpoint: str):
         #Input: list of strings
@@ -125,16 +121,12 @@ class raid_helper_aggregator:
         else:
             return "N/A"
     
-    def get_signups(self, player_data, spec):
+    def get_signups(self, player_data):
         #Input: list of dictionaries
         #Output: list of strings
-        #Returns signups for a given in-game character.
-        
-        signup_ids = []
-        for signup in player_data:
-            if signup["spec"] == spec:
-                signup_ids.append(signup["raidid"])
-        return list(set(signup_ids))
+        #Returns signups for a given discord username.
+
+        return list(set([signup["raidid"] for signup in player_data]))
         
     
     def build_output(self):
@@ -145,18 +137,14 @@ class raid_helper_aggregator:
         for user in self.users:
             player_data = self.get_player(user)
             specs = self.get_specs(player_data)
+            raids_attending = self.get_signups(player_data)
+            raid_data = ["Yes" if raid_id in raids_attending else "No" for raid_id in self.raid_ids]
             
             for spec in specs:
-                row_data = [user.replace("*", "").capitalize()]
-                row_data.append(self.get_class(spec))
-                row_data.append(self.get_role(spec))
-                row_data.append(spec.replace("1", ""))
-                raids_attending = self.get_signups(player_data, spec)
-
-                for raid_id in self.raid_ids:
-                    if raid_id in raids_attending:    
-                        row_data.append("Yes")
-                    else:
-                        row_data.append("No")
+                char_data = [user.replace("*", "").capitalize()]
+                char_data.append(self.get_class(spec))
+                char_data.append(self.get_role(spec))
+                char_data.append(spec.replace("1", ""))
+                row_data = char_data + raid_data
 
                 self.output.append(row_data)
