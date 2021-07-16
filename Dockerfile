@@ -6,4 +6,4 @@ RUN pip install -r /root/signup2sheet/requirements.txt
 
 WORKDIR /root/signup2sheet
 
-CMD ["python3 signup2sheet.py"]
+CMD ["python3", "signup2sheet.py"]
