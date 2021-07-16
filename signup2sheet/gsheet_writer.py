@@ -1,6 +1,5 @@
 from typing import List
 import gspread
-from oauth2client.service_account import ServiceAccountCredentials
 
 class gsheet_writer:
     def __init__(self, sheet_url:str):
