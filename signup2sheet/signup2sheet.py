@@ -1,6 +1,7 @@
 from typing import Dict, List
 from ruamel.yaml import YAML
 from raid_helper_aggregator import raid_helper_aggregator
+from gsheet_writer import gsheet_writer
 import discord
 
 #TODO Integrate with gspread for automatic upload
@@ -26,8 +27,8 @@ async def on_message(message):
         raid_helper = raid_helper_aggregator(raid_ids, config["token"], config["rha_endpoint"])
         raid_helper.build_output()
         sheet_writer = gsheet_writer(config["sheet"])
-        sheet_writer.write_to_sheet()
-        print("{} raids found".format(len(raid_helper[0]) - 4))
+        sheet_writer.write_to_sheet(raid_helper.output)
+        print("{} raids found".format(len(raid_helper.output[0]) - 4))
 
 
 async def _scrape_channel(channel) -> List[str]:
