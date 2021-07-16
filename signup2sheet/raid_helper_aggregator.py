@@ -80,7 +80,7 @@ class raid_helper_aggregator:
         for raid_id in self.raid_ids:
             rha_json = requests.get(self.endpoint + raid_id, headers = self.headers).json()
             self.user_data = self.user_data + rha_json["raidusers"]
-            self.raid_names = self.raid_names + rha_json["raids"]["name"]
+            self.raid_names.append(rha_json["raids"]["name"])
         self.users = sorted(list(set([user["username"] for user in self.user_data])))
 
     def get_player(self, username):
