@@ -43,9 +43,7 @@ class raid_helper_aggregator:
         
         self.get_signup_data()
 
-        raid_names = []
-
-        self.output = [["player", "class", "role", "spec"] + raid_names]
+        self.output = [["player", "class", "role", "spec"] + self.raid_names]
         
     def validate_raid_ids(self, raid_ids):
         #Input: list
@@ -81,7 +79,7 @@ class raid_helper_aggregator:
         for raid_id in self.raid_ids:
             rha_json = requests.get(self.endpoint + raid_id, headers = self.headers).json()
             self.user_data = self.user_data + rha_json["raidusers"]
-            self.raid_names = self.raid_names + rha_json['raids']['name']
+            self.raid_names = self.raid_names + rha_json["raids"]["name"]
         self.users = sorted(list(set([user["username"] for user in self.user_data])))
 
     def get_player(self, username):
