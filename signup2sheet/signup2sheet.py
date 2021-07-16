@@ -4,7 +4,6 @@ from raid_helper_aggregator import raid_helper_aggregator
 from gsheet_writer import gsheet_writer
 import discord
 
-#TODO Integrate with gspread for automatic upload
 
 client = discord.Client()
 raid_helper_id = 579155972115660803

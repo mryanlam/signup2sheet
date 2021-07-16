@@ -2,6 +2,7 @@ import requests
 from time import sleep
 from typing import List
 
+
 class raid_helper_aggregator:
     def __init__(self, raid_ids: List[str], token: str, endpoint: str):
         #Input: list of strings
