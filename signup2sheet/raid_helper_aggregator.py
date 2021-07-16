@@ -77,12 +77,10 @@ class raid_helper_aggregator:
         #Input: void
         #Output: void
         #Grabs the signup data from raid-helper.
-        #There is a 5s wait between requests.
         
         self.user_data = []
         for raid_id in self.raid_ids:
             self.user_data = self.user_data + requests.get(self.endpoint + raid_id, headers = self.headers).json()["raidusers"]
-            sleep(5)
         self.users = sorted(list(set([user["username"] for user in self.user_data])))
 
     def get_player(self, username):
