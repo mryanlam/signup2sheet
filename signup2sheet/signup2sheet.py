@@ -4,7 +4,6 @@ from raid_helper_aggregator import raid_helper_aggregator
 from gsheet_writer import gsheet_writer
 import discord
 
-#TODO Integrate with gspread for automatic upload
 
 client = discord.Client()
 raid_helper_id = 579155972115660803
@@ -26,8 +25,9 @@ async def on_message(message):
         raid_ids = await _scrape_channel(message.channel)
         raid_helper = raid_helper_aggregator(raid_ids, config["token"], config["rha_endpoint"])
         raid_helper.build_output()
-        sheet_writer = gsheet_writer(config["sheet"])
-        sheet_writer.write_to_sheet(raid_helper.output)
+        if raid_helper.output:
+            sheet_writer = gsheet_writer(config["sheet"])
+            sheet_writer.write_to_sheet(raid_helper.output)
         print("{} raids found".format(len(raid_helper.output[0]) - 4))
 
 

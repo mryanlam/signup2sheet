@@ -8,6 +8,7 @@ class gsheet_writer:
     def write_to_sheet(self, output_table: List[List[str]]):
         gc = gspread.service_account(filename='credentials.json')
         sh = gc.open_by_url(self.sheet).sheet1
+        sh.clear()
         sh.update("A1", output_table)
-        sh.format('A1:B1', {'textFormat': {'bold': True}})
+        sh.format('A1:D1', {'textFormat': {'bold': True}})
 
