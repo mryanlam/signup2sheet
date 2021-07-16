@@ -1,5 +1,4 @@
 import requests
-from time import sleep
 from typing import List
 
 class raid_helper_aggregator:
@@ -110,7 +109,7 @@ class raid_helper_aggregator:
         
         specs = []
         for signup in player_data:
-            if signup["spec"] not in specs:
+            if signup["spec"] not in specs and signup["spec"] != 'Absence':
                 specs.append(signup["spec"])
         return list(set(specs))
     
